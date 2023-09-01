@@ -154,31 +154,31 @@ namespace PracticeCoding
             //print values
 
             Console.WriteLine("Question1 ========= ");
+            Console.WriteLine("Id\tName\tDesc");
             foreach (var item in commonProducts)
             {
-                Console.WriteLine("--Id--" + item.productId + "--Name--" + item.productName + "--Desc--" + item.productDescription);
+                Console.WriteLine(item.productId + "\t" + item.productName + "\t" + item.productDescription);
             }
 
             Console.WriteLine("Question2 ========= ");
+            Console.WriteLine("Id\tName\tDesc");
             foreach (var item in subtractedList2)
             {
-                Console.WriteLine("--Id--" + item.productId + "--Name--" + item.productName + "--Desc--" + item.productDescription);
+                Console.WriteLine(item.productId + "\t" + item.productName + "\t" + item.productDescription);
             }
 
             Console.WriteLine("Question3 ========= ");
+            Console.WriteLine("Id\tName\tDesc");
             foreach (var item in subtractedList3)
             {
-                Console.WriteLine("--Id--" + item.productId + "--Name--" + item.productName + "--Desc--" + item.productDescription);
+                Console.WriteLine(item.productId + "\t" + item.productName + "\t" + item.productDescription);
             }
 
             Console.WriteLine("Question Combo ======= ");
+            Console.WriteLine("Id\tName\tDesc\tProductType");
             foreach (var item in result)
             {
-                Console.Write("--Id--" + item.Product.productId );
-                Console.Write("--Name--" + item.Product.productName);
-                Console.Write("--Desc--" + item.Product.productDescription);
-                Console.Write("--ProductType--" + item.ProductType);
-                Console.WriteLine();
+                Console.WriteLine(item.Product.productId + "\t" + item.Product.productName + "\t" + item.Product.productDescription + "\t" + item.ProductType);
             }
         }
 
