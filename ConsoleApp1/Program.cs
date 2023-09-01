@@ -57,8 +57,8 @@ namespace PracticeCoding
                 new Product { productId = 1, productName = "TVS", productDescription = "desc1" },
                 new Product { productId = 2, productName = "TVS1", productDescription = "desc2" },
                 new Product { productId = 7, productName = "TVS26", productDescription = "desc26" },
-                new Product { productId = 8, productName = "TVS33", productDescription = "TVS33" },
-                new Product { productId = 9, productName = "TVS42", productDescription = "TVS42" }
+                new Product { productId = 8, productName = "TVS33", productDescription = "desc33" },
+                new Product { productId = 9, productName = "TVS42", productDescription = "desc42" }
             };
 
             //1 - Common between the 2 list using binary search
