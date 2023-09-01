@@ -2,6 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 
+
+//Need to findout
+
+//1. Common between the 2 list.
+//2. OldList-NewList
+//3. NewList-OldList
+
+
+//Here you need to return List<ProductResult>
+//which has data for all the products in both lists  i.e. ProductA and ProdcutB .
+//If prodcut is available in both list then ProductType is Modified
+//If product is not available in ProdcutB list means ProdcutType is Removed
+//If product was not there in ProdcutA but it is there in ProdcutB then ProcutType is New
 namespace PracticeCoding
 {
     public class Product
@@ -46,6 +59,7 @@ namespace PracticeCoding
                 new Product { productId = 9, productName = "TVS42", productDescription = "TVS42 new" }
             };
 
+            //1 - Common between the 2 list using binary search
             oldList.Sort((x, y) => x.productId.CompareTo(y.productId));
             newList.Sort((x, y) => x.productId.CompareTo(y.productId));
 
@@ -60,6 +74,54 @@ namespace PracticeCoding
             }
 
             // Now, 'commonProducts' contains the common products between 'oldList' and 'newList'.
+
+            //2 - Substract newlist from oldlist
+            List<Product> subtractedList2 = new List<Product>();
+
+            foreach (var product in oldList)
+            {
+                if (!newList.Any(p => p.productId == product.productId))
+                {
+                    subtractedList2.Add(product);
+                }
+            }
+
+            // Now, 'subtractedList' contains the products that exist in 'oldList' but not in 'newList'.
+
+            //3 - Subtract oldlist from newlist
+            List<Product> subtractedList3 = new List<Product>();
+
+            foreach (var product in newList)
+            {
+                if (!oldList.Any(p => p.productId == product.productId))
+                {
+                    subtractedList3.Add(product);
+                }
+            }
+
+            // Now, 'subtractedList' contains the products that exist in 'newList' but not in 'oldList'.
+
+            //print values
+
+            Console.WriteLine("Question1 ========= ");
+            foreach (var item in commonProducts)
+            {
+                Console.WriteLine("--Id--" + item.productId + "--Name--" + item.productName + "--Desc--" + item.productDescription);
+            }
+
+            Console.WriteLine("Question2 ========= ");
+            foreach (var item in subtractedList2)
+            {
+                Console.WriteLine("--Id--" + item.productId + "--Name--" + item.productName + "--Desc--" + item.productDescription);
+            }
+
+            Console.WriteLine("Question3 ========= ");
+            foreach (var item in subtractedList3)
+            {
+                Console.WriteLine("--Id--" + item.productId + "--Name--" + item.productName + "--Desc--" + item.productDescription);
+            }
+
+            Console.ReadKey();
         }
 
         public static int BinarySearch(List<Product> list, int productId)
