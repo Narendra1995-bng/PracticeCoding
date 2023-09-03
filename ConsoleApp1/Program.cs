@@ -2,21 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 
-
-//Need to findout
-
-//1. Common between the 2 list.
-//2. OldList-NewList
-//3. NewList-OldList
-
-
-//Here you need to return List<ProductResult>
-//which has data for all the products in both lists  i.e. ProductA and ProdcutB .
-//If prodcut is available in both list then ProductType is Modified
-//If product is not available in ProdcutB list means ProdcutType is Removed
-//If product was not there in ProdcutA but it is there in ProdcutB then ProcutType is New
-
-
 namespace PracticeCoding
 {
     public class Product
@@ -61,14 +46,12 @@ namespace PracticeCoding
                 new Product { productId = 9, productName = "TVS42", productDescription = "desc42" }
             };
 
-            // Prepare a new resultset with following condition
-            //Here you need to return List<ProductResult>
-            //which has data for all the products in both lists  i.e. ProductA and ProdcutB .
-            //If prodcut is available in both list then ProductType is Modified
-            //If product is not available in ProdcutB list means ProdcutType is Removed
-            //If product was not there in ProdcutA but it is there in ProdcutB then ProcutType is New
-
             List<ProductResult> productResultList = GetProductResult(oldList, newList);
+            Console.WriteLine("Id\tName\tDesc\tProductType");
+            foreach (var item in productResultList)
+            {
+                Console.WriteLine(item.Product.productId + "\t" + item.Product.productName + "\t" + item.Product.productDescription + "\t" + item.ProductType);
+            }
 
         }
 
