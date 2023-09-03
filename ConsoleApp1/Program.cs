@@ -26,7 +26,7 @@ namespace PracticeCoding
 
     public class Program
     {
-        public static void Main(string[] args)
+        public static void MainOld(string[] args)
         {
             List<Product> oldList = new List<Product>
             {
@@ -46,7 +46,7 @@ namespace PracticeCoding
                 new Product { productId = 9, productName = "TVS42", productDescription = "desc42" }
             };
 
-            List<ProductResult> productResultList = GetProductResult(oldList, newList);
+            List<ProductResult> productResultList = BinarySearchListsAll(oldList, newList);
             Console.WriteLine("Id\tName\tDesc\tProductType");
             foreach (var item in productResultList)
             {
@@ -55,24 +55,82 @@ namespace PracticeCoding
 
         }
 
-        public static List<ProductResult> GetProductResult(List<Product> oldList, List<Product> newList)
+        public static List<ProductResult> GetProductResultOldMethodForEach(List<Product> oldList, List<Product> newList)
         {
             List<ProductResult> result = new List<ProductResult>();
 
-            foreach (var product in oldList)
+            foreach (var oldItem in oldList)
             {
-                var matchingProduct = newList.FirstOrDefault(p => p.productId == product.productId);
+                var matchingProduct = newList.FirstOrDefault(p => p.productId == oldItem.productId);
 
                 if (matchingProduct != null)
                 {
                     result.Add(new ProductResult
                     {
-                        Product = product,
+                        Product = oldItem,
                         ProductType = ProductType.Modified
                     });
                 }
                 else
                 {
+                    result.Add(new ProductResult
+                    {
+                        Product = oldItem,
+                        ProductType = ProductType.Removed
+                    });
+                }
+            }
+
+            foreach (var newItem in newList)
+            {
+                var matchingProduct = oldList.FirstOrDefault(p => p.productId == newItem.productId);
+
+                if (matchingProduct == null)
+                {
+                    result.Add(new ProductResult
+                    {
+                        Product = newItem,
+                        ProductType = ProductType.New
+                    });
+                }
+            }
+            return result; 
+        }
+
+        public static List<ProductResult> BinarySearchCustom(List<Product> oldList, List<Product> newList)
+        {
+            List<ProductResult> result = new List<ProductResult>();
+
+            return result;
+        }
+
+        public static List<ProductResult> BinarySearchListsAll(List<Product> oldList, List<Product> newList)
+        {
+            // Sort the lists for binary search
+            oldList.Sort((x, y) => x.productId.CompareTo(y.productId));
+            newList.Sort((x, y) => x.productId.CompareTo(y.productId));
+
+            List<ProductResult> result = new List<ProductResult>();
+
+            foreach (var product in oldList)
+            {
+                int index = BinarySearch(newList, product.productId);
+
+                if (index != -1)
+                {
+                    // Product is in both lists, so it's modified
+                    result.Add(new ProductResult
+                    {
+                        Product = product,
+                        ProductType = ProductType.Modified
+                    });
+
+                    // Remove the product from newList to avoid duplicates
+                    newList.RemoveAt(index);
+                }
+                else
+                {
+                    // Product is in oldList but not in newList, so it's removed
                     result.Add(new ProductResult
                     {
                         Product = product,
@@ -83,17 +141,14 @@ namespace PracticeCoding
 
             foreach (var product in newList)
             {
-                var matchingProduct = oldList.FirstOrDefault(p => p.productId == product.productId);
-
-                if (matchingProduct == null)
+                // Any remaining products in newList are new
+                result.Add(new ProductResult
                 {
-                    result.Add(new ProductResult
-                    {
-                        Product = product,
-                        ProductType = ProductType.New
-                    });
-                }
+                    Product = product,
+                    ProductType = ProductType.New
+                });
             }
+
             return result;
         }
 
@@ -122,9 +177,6 @@ namespace PracticeCoding
 
             return -1; // Product not found.
         }
-
-        
     }
-
     
 }
